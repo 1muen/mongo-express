@@ -3,6 +3,10 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+function getBoolean(str, defaultValue = false) {
+  return str ? str.toLowerCase() === 'true' : defaultValue;
+}
+
 function getFile(filePath) {
   if (filePath !== undefined && filePath) {
     try {
@@ -46,13 +50,11 @@ if (process.env.VCAP_SERVICES) {
   }
 }
 
+// ME_CONFIG_BASICAUTH deprecated, to be removed in next releases
 const basicAuth = 'ME_CONFIG_BASICAUTH';
+const basicAuthEnabled = 'ME_CONFIG_BASICAUTH_ENABLED';
 const basicAuthUsername = 'ME_CONFIG_BASICAUTH_USERNAME';
 const basicAuthPassword = 'ME_CONFIG_BASICAUTH_PASSWORD';
-
-function getBoolean(str, defaultValue = false) {
-  return str ? str.toLowerCase() === 'true' : defaultValue;
-}
 
 export default {
   mongodb: {
@@ -119,9 +121,8 @@ export default {
   },
 
   // set useBasicAuth to true if you want to authenticate mongo-express logins
-  // if admin is false, the basicAuthInfo list below will be ignored
-  // this will be false unless ME_CONFIG_BASICAUTH is set to the true
-  useBasicAuth: getBoolean(getFileEnv(basicAuth)),
+  // this will be false unless ME_CONFIG_BASICAUTH_ENABLED is set to the true
+  useBasicAuth: getBoolean(getFileEnv(basicAuthEnabled) || getFileEnv(basicAuth)),
 
   basicAuth: {
     username: getFileEnv(basicAuthUsername) || 'admin',
@@ -134,10 +135,6 @@ export default {
 
     // documentsPerPage: how many documents you want to see at once in collection view
     documentsPerPage: process.env.ME_CONFIG_DOCUMENTS_PER_PAGE || 10,
-
-    // editorTheme: Name of the theme you want to use for displaying documents
-    // See http://codemirror.net/demo/theme.html for all examples
-    editorTheme: process.env.ME_CONFIG_OPTIONS_EDITORTHEME || 'rubyblue',
 
     // Maximum size of a single property & single row
     // Reduces the risk of sending a huge amount of data when viewing collections

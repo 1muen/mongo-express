@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/mongo-express.svg)](https://www.npmjs.com/package/mongo-express) [![npm](https://img.shields.io/npm/dm/mongo-express.svg)](https://www.npmjs.com/package/mongo-express) [![GitHub stars](https://img.shields.io/github/stars/mongo-express/mongo-express.svg)](https://github.com/mongo-express/mongo-express/stargazers) [![Known Vulnerabilities](https://snyk.io/test/npm/name/badge.svg)](https://snyk.io/test/npm/mongo-express)
 [![Build Status](https://github.com/mongo-express/mongo-express/actions/workflows/standard-ci.yml/badge.svg?branch=master)](https://github.com/mongo-express/mongo-express/actions/workflows/standard-ci.yml)
 
-A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap3
+A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap 5
 
 ## Features
 
@@ -16,7 +16,7 @@ A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap
 - Async on-demand loading of big document properties (>100KB default) to keep collection view fast
 - GridFS support - add/get/delete incredibly large files
 - Use BSON data types in documents
-- Mobile / Responsive - Bootstrap 3 works passably on small screens when you're in a bind
+- Mobile / Responsive - Bootstrap 5 works passably on small screens when you're in a bind
 - Connect and authenticate to individual databases
 - Authenticate as admin to view all databases
 - Database blacklist/whitelist
@@ -35,27 +35,43 @@ View the album for more screenshots: (server status, database views, etc..)
 
 ## Development
 
-To test or develop with the latest version you can install using this git repository:
+To test or develop with the latest version (_master_ branch) you can install using this git repository:
 
-    npm i mongo-express@git+https://github.com/mongo-express/mongo-express.git#master
+    npm i mongo-express@github:mongo-express/mongo-express
+    OR
+    yarn add mongo-express@github:mongo-express/mongo-express
+    OR
+    pnpm add mongo-express@github:mongo-express/mongo-express
 
 Copy config.default.js to config.js and edit the default property to fit your local environment
 
 **Run the development build using:**
 
     npm run start-dev
+    OR
+    yarn start-dev
+    OR
+    pnpm run start-dev
 
-## Usage (npm / CLI)
+## Usage (npm / yarn / pnpm / CLI)
 
 _mongo-express_ requires Node.js v4 or higher.
 
 **To install:**
 
-    npm install -g mongo-express
+    npm i -g mongo-express
+    OR
+    yarn add -g mongo-express
+    OR
+    pnpm add -g mongo-express
 
 Or if you want to install a non-global copy:
 
-    npm install mongo-express
+    npm i mongo-express
+    OR
+    yarn add mongo-express
+    OR
+    pnpm add mongo-express
 
 By default `config.default.js` is used where the basic access authentication is `admin`:`pass`. This is obviously not safe, and there are warnings in the console.
 
@@ -127,42 +143,42 @@ $ docker run -it --rm -p 8081:8081 --network some-network mongo-express
 
 You can use the following [environment variables](https://docs.docker.com/reference/run/#env-environment-variables) to modify the container's configuration:
 
-Name | Default | Description
-| - | - | - |
-`ME_CONFIG_MONGODB_URL` | `mongodb://admin:pass@localhost:27017/db?ssl=false`
-`ME_CONFIG_MONGODB_ENABLE_ADMIN` | `false` | Enable administrator access. Send strings: `"true"` or `"false"`.
-`ME_CONFIG_MONGODB_AUTH_USERNAME` | `admin` | Database username (only needed if `ENABLE_ADMIN` is `"false"`).
-`ME_CONFIG_MONGODB_AUTH_PASSWORD` | `pass` | Database password (only needed if `ENABLE_ADMIN` is `"false"`).
-`ME_CONFIG_MONGODB_ALLOW_DISK_USE` | `false` | Remove the limit of 100 MB of RAM on each aggregation pipeline stage.
-`ME_CONFIG_MONGODB_TLS` | `false` | Use TLS client certificate
-`ME_CONFIG_MONGODB_TLS_ALLOW_CERTS` | `true` | Validate mongod server certificate against CA
-`ME_CONFIG_MONGODB_TLS_CA_FILE` | `` | CA certificate File
-`ME_CONFIG_MONGODB_TLS_CERT_FILE` | `` | TLS client certificate file
-`ME_CONFIG_MONGODB_TLS_CERT_KEY_FILE` | `` | TLS client certificate key file
-`ME_CONFIG_MONGODB_TLS_CERT_KEY_FILE_PASSWORD` | `` | TLS client certificate key file password
-`ME_CONFIG_MONGODB_URL_FILE` | `` | File version of ME_CONFIG_MONGODB_URL
-`ME_CONFIG_SITE_BASEURL` | `/` | Set the express baseUrl to ease mounting at a subdirectory. Remember to include leading and trailing slash.
-`ME_CONFIG_HEALTH_CHECK_PATH` | `/status` | Set the mongo express healthcheck path. Remember to add the forward slash at the start.
-`ME_CONFIG_SITE_COOKIESECRET` | `cookiesecret` | String used by [cookie-parser middleware](https://www.npmjs.com/package/cookie-parser) to sign cookies.
-`ME_CONFIG_SITE_SESSIONSECRET` | `sessionsecret` | String used to sign the session ID cookie by [express-session middleware](https://www.npmjs.com/package/express-session).
-`ME_CONFIG_BASICAUTH` | `false` | Enable Basic Authentication. Send strings: `"true"` or `"false"`.
-`ME_CONFIG_BASICAUTH_USERNAME` | `` | mongo-express web login name. Sending an empty string will disable basic authentication.
-`ME_CONFIG_BASICAUTH_PASSWORD` | `` | mongo-express web login password.
-`ME_CONFIG_REQUEST_SIZE` | `100kb` | Used to configure maximum Mongo update payload size. CRUD operations above this size will fail due to restrictions in [body-parser](https://www.npmjs.com/package/body-parser).
-`ME_CONFIG_OPTIONS_EDITORTHEME` | `rubyblue` | Web editor color theme, [more here](http://codemirror.net/demo/theme.html).
-`ME_CONFIG_OPTIONS_READONLY` | `false` | if readOnly is true, components of writing are not visible.
-`ME_CONFIG_OPTIONS_FULLWIDTH_LAYOUT` | `false` | If set to true an alternative page layout is used utilizing full window width.
-`ME_CONFIG_OPTIONS_PERSIST_EDIT_MODE` | `false` | If set to true, remain on the same page after clicking on the Save button
-`ME_CONFIG_OPTIONS_NO_DELETE` | `false` | If noDelete is true, components of deleting are not visible.
-`ME_CONFIG_SITE_SSL_ENABLED` | `false` | Enable SSL.
-`ME_CONFIG_SITE_SSL_CRT_PATH` | ` ` | SSL certificate file.
-`ME_CONFIG_SITE_SSL_KEY_PATH` | ` ` | SSL key file.
-`ME_CONFIG_SITE_GRIDFS_ENABLED` | `false` | Enable gridFS to manage uploaded files.
-`ME_CONFIG_BASICAUTH_USERNAME_FILE` | `` | File version of ME_CONFIG_BASICAUTH_USERNAME
-`ME_CONFIG_BASICAUTH_PASSWORD_FILE` | `` | File version of ME_CONFIG_BASICAUTH_PASSWORD
-`ME_CONFIG_DOCUMENTS_PER_PAGE` | `10` | How many documents you want to see at once in collection view
-`PORT` | `8081` | port that mongo-express will run on.
-`VCAP_APP_HOST` | `localhost` | address that mongo-express will listen on for incoming connections.
+| Name                                           | Default                                             | Description                                                                                                                                                                     |
+| ---------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ME_CONFIG_MONGODB_URL`                        | `mongodb://admin:pass@localhost:27017/db?ssl=false` |                                                                                                                                                                                 |
+| `ME_CONFIG_MONGODB_ENABLE_ADMIN`               | `false`                                             | Enable administrator access. Send strings: `"true"` or `"false"`.                                                                                                               |
+| `ME_CONFIG_MONGODB_AUTH_USERNAME`              | `admin`                                             | Database username (only needed if `ENABLE_ADMIN` is `"false"`).                                                                                                                 |
+| `ME_CONFIG_MONGODB_AUTH_PASSWORD`              | `pass`                                              | Database password (only needed if `ENABLE_ADMIN` is `"false"`).                                                                                                                 |
+| `ME_CONFIG_MONGODB_ALLOW_DISK_USE`             | `false`                                             | Remove the limit of 100 MB of RAM on each aggregation pipeline stage.                                                                                                           |
+| `ME_CONFIG_MONGODB_TLS`                        | `false`                                             | Use TLS client certificate                                                                                                                                                      |
+| `ME_CONFIG_MONGODB_TLS_ALLOW_CERTS`            | `true`                                              | Validate mongod server certificate against CA                                                                                                                                   |
+| `ME_CONFIG_MONGODB_TLS_CA_FILE`                | ``                                                  | CA certificate File                                                                                                                                                             |
+| `ME_CONFIG_MONGODB_TLS_CERT_FILE`              | ``                                                  | TLS client certificate file                                                                                                                                                     |
+| `ME_CONFIG_MONGODB_TLS_CERT_KEY_FILE`          | ``                                                  | TLS client certificate key file                                                                                                                                                 |
+| `ME_CONFIG_MONGODB_TLS_CERT_KEY_FILE_PASSWORD` | ``                                                  | TLS client certificate key file password                                                                                                                                        |
+| `ME_CONFIG_MONGODB_URL_FILE`                   | ``                                                  | File version of ME_CONFIG_MONGODB_URL                                                                                                                                           |
+| `ME_CONFIG_SITE_BASEURL`                       | `/`                                                 | Set the express baseUrl to ease mounting at a subdirectory. Remember to include leading and trailing slash.                                                                     |
+| `ME_CONFIG_HEALTH_CHECK_PATH`                  | `/status`                                           | Set the mongo express healthcheck path. Remember to add the forward slash at the start.                                                                                         |
+| `ME_CONFIG_SITE_COOKIESECRET`                  | `cookiesecret`                                      | String used by [cookie-parser middleware](https://www.npmjs.com/package/cookie-parser) to sign cookies.                                                                         |
+| `ME_CONFIG_SITE_SESSIONSECRET`                 | `sessionsecret`                                     | String used to sign the session ID cookie by [express-session middleware](https://www.npmjs.com/package/express-session).                                                       |
+| `ME_CONFIG_BASICAUTH`                          | `false`                                             | Deprecated, use `ME_CONFIG_BASICAUTH_ENABLED` instead.                                                                                                                          |
+| `ME_CONFIG_BASICAUTH_ENABLED`                  | `false`                                             | Enable Basic Authentication. Send strings: `"true"` or `"false"`.                                                                                                               |
+| `ME_CONFIG_BASICAUTH_USERNAME`                 | ``                                                  | mongo-express web login name. If not defined, `admin` is the username.                                                                                                          |
+| `ME_CONFIG_BASICAUTH_USERNAME_FILE`            | ``                                                  | File version of `ME_CONFIG_BASICAUTH_USERNAME`                                                                                                                                  |
+| `ME_CONFIG_BASICAUTH_PASSWORD`                 | ``                                                  | mongo-express web login password. If not defined, `pass` is the password.                                                                                                       |
+| `ME_CONFIG_BASICAUTH_PASSWORD_FILE`            | ``                                                  | File version of `ME_CONFIG_BASICAUTH_PASSWORD`                                                                                                                                  |
+| `ME_CONFIG_REQUEST_SIZE`                       | `100kb`                                             | Used to configure maximum Mongo update payload size. CRUD operations above this size will fail due to restrictions in [body-parser](https://www.npmjs.com/package/body-parser). |
+| `ME_CONFIG_OPTIONS_READONLY`                   | `false`                                             | if readOnly is true, components of writing are not visible.                                                                                                                     |
+| `ME_CONFIG_OPTIONS_FULLWIDTH_LAYOUT`           | `false`                                             | If set to true an alternative page layout is used utilizing full window width.                                                                                                  |
+| `ME_CONFIG_OPTIONS_PERSIST_EDIT_MODE`          | `false`                                             | If set to true, remain on the same page after clicking on the Save button                                                                                                       |
+| `ME_CONFIG_OPTIONS_NO_DELETE`                  | `false`                                             | If noDelete is true, components of deleting are not visible.                                                                                                                    |
+| `ME_CONFIG_SITE_SSL_ENABLED`                   | `false`                                             | Enable SSL.                                                                                                                                                                     |
+| `ME_CONFIG_SITE_SSL_CRT_PATH`                  | ` `                                                 | SSL certificate file.                                                                                                                                                           |
+| `ME_CONFIG_SITE_SSL_KEY_PATH`                  | ` `                                                 | SSL key file.                                                                                                                                                                   |
+| `ME_CONFIG_SITE_GRIDFS_ENABLED`                | `false`                                             | Enable gridFS to manage uploaded files.                                                                                                                                         |
+| `ME_CONFIG_DOCUMENTS_PER_PAGE`                 | `10`                                                | How many documents you want to see at once in collection view                                                                                                                   |
+| `PORT`                                         | `8081`                                              | port that mongo-express will run on.                                                                                                                                            |
+| `VCAP_APP_HOST`                                | `localhost`                                         | address that mongo-express will listen on for incoming connections.                                                                                                             |
 
 **Example:**
 
@@ -170,8 +186,7 @@ Name | Default | Description
         --name mongo-express \
         --network web_default \
         -p 8081:8081 \
-        -e ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" \
-        -e ME_CONFIG_BASICAUTH_USERNAME="" \
+        -e ME_CONFIG_BASICAUTH_ENABLED="false" \
         -e ME_CONFIG_MONGODB_URL="mongodb://mongo:27017" \
         mongo-express
 
@@ -192,27 +207,27 @@ The default port exposed from the container is 8081, so visit `http://localhost:
 By using Mongo Express Docker Extension, it's easy to setup Mongo Express on Docker Desktop with [just one click](https://open.docker.com/extensions/marketplace?extensionId=ajeetraina/mongodb-express-docker-extension&tag=1.0).
 
 
-## Usage (Bluemix)
+## Usage (IBM Cloud)
 
-**Deploy to Bluemix**
+**Deploy to IBM Cloud**
 
 Doing manually:
 
 - Git clone this repository
-- Create a new or use already created [MongoDB experimental service](https://www.ng.bluemix.net/docs/#services/MongoDB/index.html#MongoDB)
-- Change the file `manifest.yml` to fit your Bluemix app and service environment
+- Create a new or use already created [MongoDB service](https://www.ibm.com/products/databases-for-mongodb)
+- Change the file `examples/ibm-cloud/manifest.yml` to fit your IBM Cloud app and service environment
 
 Doing automatically:
 
-- Click the button below to fork into IBM DevOps Services and deploy your own copy of this application on Bluemix
+- Click the button below to fork into IBM DevOps Services and deploy your own copy of this application on IBM Cloud
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/mongo-express/mongo-express.git)
+[![Deploy to IBM Cloud](https://cloud.ibm.com/devops/setup/deploy/button_x2.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https://github.com/mongo-express/mongo-express.git)
 
 Then, take the following action to customize to your environment:
 
 - Create your `config.js` file based on `config.default.js`
   - Check if it is necessary to change the `dbLabel` according to the MongoDB service created
-  - Change the `basicAuth` properties, not to keep the default values
+  - Change the `basicAuth` properties, do not to keep the default values
 
 ## Search
 
