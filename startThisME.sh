@@ -1,0 +1,1 @@
+export ME_CONFIG_MONGODB_URL="mongodb://admin:admin@localhost:27017" && export PORT=9081 && pnpm run start-dev
